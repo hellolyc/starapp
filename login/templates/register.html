@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+	{% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{% static 'js/jquery.validate.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/login.js' %}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	<div class="container">
+		<div class="row">
+		</div>
+	</div>
+	<div class="container" style="padding-top : 5px">
+		<div class="row">
+			<form id="registerform" class="form-horizontal" action="/register/" onsubmit = "console.log('hello'); return validate_form()" method="post">
+			{% csrf_token %}
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label sr-only">Email</label>
+    <div class="col-sm-10 " style="padding:10px" id="email" >
+      <input type="email" name="username" class="form-control " placeholder="Email">
+	  <font style="position: absolute;right: 0;text-align: right"></font>
+    </div>
+  </div>
+  <div class="form-group ">
+    <label  class="col-sm-2 control-label sr-only">Password</label>
+    <div class="col-sm-10 " style="padding:10px" id="password1">
+      <input type="password" name="password1" class="form-control"  placeholder="Password"> 
+	  <font style="position: absolute;right: 0;text-align: right"></font>
+    </div>
+  </div>
+   <div class="form-group ">
+    <label class="col-sm-2 control-label sr-only">Confirm Password</label>
+    <div class="col-sm-10 "style="padding:10px" id="password2">
+      <input type="password" name="password2" class="form-control"  placeholder="Password" >
+	  <font style="position: absolute;right: 0;text-align: right"></font>
+    </div>
+  </div>
+    <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+	  <button type="submit" class="btn btn-default" id="register">注册</button>
+    </div>
+  </div>
+</form>
+		</div>
+	</div>
+	
+    
+	
+  </body>
+</html>

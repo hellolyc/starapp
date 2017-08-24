@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	#'polls',
+	'login',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_test',
+        'NAME': 'lyc',
 		'USER': 'root',
 		'PASSWORD': 'root',
 		'HOST': '127.0.0.1',
