@@ -1,12 +1,95 @@
 $(document).ready(function(){
-   $("#email input").blur(check_email);
-   $("#password1 input").blur(check_password);
-   $("#password2 input").blur(check_confirmpassword);
+	$('form').bootstrapValidator({
+　　　　　　　　message: 'This value is not valid',
+		　feedbackIcons: {
+			　　　　　　　　valid: 'glyphicon glyphicon-ok',
+			　　　　　　　　invalid: 'glyphicon glyphicon-remove',
+			　　　　　　　　validating: 'glyphicon glyphicon-refresh'
+		　　　　　　　　   },
+		fields: {
+			username: {
+				message: '用户名验证失败',
+				validators: {
+					notEmpty: {
+						message: '用户名不能为空'
+					},
+					emailAddress: {
+						message: '邮箱格式不正确'
+					}
+				} 
+			},
+			password: {
+				validators: {
+					notEmpty: {
+						message: '密码不能为空'
+					},
+					regexp: {
+						regexp: /^[a-zA-Z0-9_]+$/,
+						message: '密码只能包含大写、小写、数字和下划线'
+					},
+					stringLength: {
+						min: 6,
+						max: 18,
+						message: '密码长度必须在6到18位之间'
+					},
+				}
+			},
+			password1: {
+				validators: {
+					notEmpty: {
+						message: '密码不能为空'
+					},
+					regexp: {
+						regexp: /^[a-zA-Z0-9_]+$/,
+						message: '密码只能包含大写、小写、数字和下划线'
+					},
+					stringLength: {
+						min: 6,
+						max: 18,
+						message: '密码长度必须在6到18位之间'
+					},
+				}
+			},
+			password2: {
+				validators: {
+					notEmpty: {
+						message: '密码不能为空'
+					},
+					regexp: {
+						regexp: /^[a-zA-Z0-9_]+$/,
+						message: '密码只能包含大写、小写、数字和下划线'
+					},
+					stringLength: {
+						min: 6,
+						max: 18,
+						message: '密码长度必须在6到18位之间'
+					},
+				}
+			}
+		}
+	});
 });
 function validate_form()
 {
-	return check_email() && check_password() && check_confirmpassword();
-	
+	if(!check_email())
+	{
+		var email = $("#email input")
+		email.focus();
+		return false
+	}
+	else if(!check_password())
+	{
+		var password1 = $("#password1 input")
+		password1.focus()
+		return false
+	}
+	else if(!check_confirmpassword())
+	{
+		var password2 = $("#password2 input")
+		password2.focus()
+		return false
+	}
+	return true
 }
 function check_email()
 {
@@ -66,5 +149,27 @@ function check_confirmpassword()
 	}
 	else{font.text("") 
 	return true}
+	
+}
+function ChangeCode(code)
+{
+	code.src += "?";
+
+}
+function validate_loginform()
+{
+	var email = $("#email input")
+	var password1 = $("#password1 input")
+	if(email.val() == "")
+	{
+		email.focus()
+		return false
+	}
+	if(password1.val() == "")
+	{
+		password1.focus()
+		return false
+	}
+	return true;
 	
 }
