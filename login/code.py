@@ -53,5 +53,3 @@ def gene_code():
     image = image.transform((width+20,height+10), Image.AFFINE, (1,-0.3,0,-0.1,1,0),Image.BILINEAR)  #创建扭曲
     image = image.filter(ImageFilter.EDGE_ENHANCE_MORE) #滤镜，边界加强
     return image,text
-if __name__ == "__main__":
-    gene_code()
