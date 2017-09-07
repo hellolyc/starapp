@@ -4,6 +4,8 @@ from django.shortcuts import render
 from .models import User
 from .forms import NameForm
 import smtplib 
+import datetime
+import time
 import io
 from email.mime.text import MIMEText
 from .code import gene_code 
@@ -31,11 +33,28 @@ def post(request):
 		else:
 			user = User.objects.get(username = username)
 			if user.password == password:
-				return render(request,'main.html')
+				request.session['time'] = time.time()
+				request.session['username'] = username
+				return render(request,'main.html',{'user':user})
 			else:
 				return HttpResponse("用户名或密码错误!")
 	else:
 		return HttpResponse("请输入用户名或密码")
+def logout(request):
+	del request.session['username']
+	return HttpResponseRedirect('/login/')
+def checksession(fun):
+	def wrapper(request):
+		now = datetime.now()
+		timedela = now - request.session['time']
+		if(timedela.seconds() >= 5 * 60):
+			del request.session['username']
+			return HttpResponseRedirect('/login/')
+		fun(request)
+		return wrapper
+
+ 
+
 def register(request):
 	if request.method == 'POST':
 		username = request.POST['username']

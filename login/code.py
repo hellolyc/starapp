@@ -8,7 +8,7 @@ import io
 from PIL import Image,ImageDraw,ImageFont,ImageFilter
 from django.conf import settings
 #字体的位置，不同版本的系统会有不同
-font_path =  'login/static/fonts/STXINGKA.TTF'
+font_path =  'login/static/fonts/msyhbd.ttf'
 print(font_path)
 #生成几位数的验证码
 number = 4
