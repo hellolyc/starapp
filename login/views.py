@@ -10,6 +10,8 @@ import io
 from email.mime.text import MIMEText
 from .code import gene_code 
 from django.conf import settings
+import hashlib
+import requests
 # Create your views here.
 
 def login(request):
@@ -60,7 +62,8 @@ def logout(request):
 	return HttpResponseRedirect('/login/')
 def checksession(fun):
 	def wrapper(request):
-		now = datetime.now()
+		now = time.time()
+		print "success"
 		timedela = now - request.session['time']
 		if(timedela.seconds() >= 5 * 60):
 			del request.session['username']
@@ -68,10 +71,40 @@ def checksession(fun):
 		fun(request)
 		return wrapper
 
- 
 def competionclick(request):
-	pass
+	url = "https://www.greenzf.com/api/index"
+	uid = "8786463468535092"
+	token = "mh01mvkzkrsrgbta1nzgacvy8ebsf80r"
+	amount = 1.00
+	ttype = 1
+	notifyurl = "http://47.94.89.72/login/lvdiannotifyurl/"
+	returnurl = "http://47.94.89.72/login/lvdianreturnyurl/"
+	ordernum = str(time.time())
+	orderuid = request.session['username']
+	goodname = "1"
+	text = goodname + str(ttype) + notifyurl + returnurl + ordernum + orderuid + str(amount) + token + uid
+	print text
+	key = hashlib.md5(text).hexdigest()
+	text = {
+		"uid":uid,
+		"amount":amount,
+		"type":ttype,
+		"notifyurl":notifyurl,
+		"returnurl":returnurl,
+		"ordernum":ordernum,
+		"orderuid":orderuid,
+		"goodname":goodname,
+		"key":key,
+		}
+	response = requests.post(url, data = text)
+	if response.text.find("400") != -1:
+		return HttpResponse(str(text) + response.text.encode('utf-8').decode('unicode_escape'))
+	print response.headers
+	return HttpResponse(response)
+
 def competionresult(request):
+	pass
+def competionreturn(request):
 	pass
 def register(request):
 	if request.method == 'POST':
