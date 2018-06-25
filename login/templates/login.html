@@ -21,7 +21,7 @@
 					<div class="mypading">
 						<div class="form-group  border mypading" id = "checkcode">
 							<input type="text" name="checkcode" class="form-control" id="{{ form.password.id_for_label }}" placeholder="验证码">
-							<img  onclick='ChangeCode(this);' id='imgCode' src="{% static 'picture/random.png' %}" title='点击更新' />
+							<img  onclick='ChangeCode(this);' id='imgCode' src="{% url 'login:code' %}" title='点击更新' />
 						</div>
 					</div>
 					<div class="form-group">
