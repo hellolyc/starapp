@@ -1,5 +1,6 @@
 {% extends "base/base.html" %}
 			{% block context %}
+			{% load staticfiles %}
 	<div class="container">
 		<div class="row mycenter">
 			<div class="col-md-12">
@@ -20,13 +21,13 @@
 					<div class="mypading">
 						<div class="form-group  border mypading" id = "checkcode">
 							<input type="text" name="checkcode" class="form-control" id="{{ form.password.id_for_label }}" placeholder="验证码">
-							<img  onclick='ChangeCode(this);' id='imgCode' src='code/' title='点击更新' />
+							<img  onclick='ChangeCode(this);' id='imgCode' src="{% static 'picture/random.png' %}" title='点击更新' />
 						</div>
 					</div>
 					<div class="form-group">
 						   <button type="submit" class="btn btn-primary">登录</button>
 						   <button class="btn btn-primary"><a href="{% url 'login:register' %}" style="color:white">免费注册</a></button>
-						   <a href="{% url 'login:forget' %}" style="color:blue">忘记密码</a>
+						   <button class="btn btn-primary"><a href="{% url 'login:forget' %}" style="color:white">忘记密码</a></button>
 				    </div>
 				</form>
 			</div>

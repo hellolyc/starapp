@@ -25,7 +25,7 @@ SECRET_KEY = '#uye29w*+i6#cgn$^idh+=ajp4$^f8++v%a2^r7f^^=edy_+8!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'login',
+    'login',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lyc',
-		'USER': 'root',
-		'PASSWORD': 'root',
-		'HOST': '127.0.0.1',
-		'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'blogDB.db'), 
     }
 }
 

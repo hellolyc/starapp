@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from . import views
+import views
 urlpatterns = [
 	url(r'^$', views.login,name = 'login'),
     url(r'^register/', views.register, name='register'),
     url(r'^forget/', views.forget, name='forget'),
     url(r'^code/', views.code, name='code'),
+    url(r'^logout/', views.logout, name='logout'),
+    url(r'^competionclick/', views.competionclick, name='competionclick'),
+    url(r'^lvdiannotifyurl/', views.competionresult, name='competionresult'),
 
 ]

@@ -1,7 +1,7 @@
 # coding: UTF-8
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from .models import User
+from .models import User,Competition,UserCompetion
 from .forms import NameForm
 import smtplib 
 import datetime
@@ -9,6 +9,7 @@ import time
 import io
 from email.mime.text import MIMEText
 from .code import gene_code 
+from django.conf import settings
 # Create your views here.
 
 def login(request):
@@ -17,8 +18,20 @@ def login(request):
 	else:
 		return get(request)
 def get(request):
+	if request.session.get('username'):
+		user = User.objects.get(username = request.session['username'])
+		com = Competition.objects.all()
+		usercom = UserCompetion.objects.all()
+		return render(request,'main.html',{'user':user,"com":com, "usercom": usercom})
+		
+	image,text = gene_code()
+	buf = io.BytesIO() #io.BytesIO() #io.StringIO() use it to fill str obj
+	name = settings.STATIC_ROOT +  "/picture/random.png"
+	image.save(name, 'png')
+	request.session['checkcode'] = text.lower() 
+	print text.lower()
 	form = NameForm()
-	return render(request,'login.html',{'form':form})
+	return render(request,'login.html',{'form':form,'codename' : name})
 def post(request):
 	form = NameForm(request.POST)
 	if form.is_valid():
@@ -35,7 +48,9 @@ def post(request):
 			if user.password == password:
 				request.session['time'] = time.time()
 				request.session['username'] = username
-				return render(request,'main.html',{'user':user})
+				com = Competition.objects.all()
+				usercom = UserCompetion.objects.all()
+				return render(request,'main.html',{'user':user,"com":com, "usercom": usercom})
 			else:
 				return HttpResponse("用户名或密码错误!")
 	else:
@@ -60,6 +75,7 @@ def register(request):
 		username = request.POST['username']
 		password1 = request.POST['password1']
 		password2 = request.POST['password2']
+		phonenum = request.POST['phonenum']
 		if username == "" or password1 == "":
 			return HttpResponse("请输入用户名或密码")
 		if password1 != password2:
@@ -68,8 +84,8 @@ def register(request):
 		if user :
 			return HttpResponse("用户名已存在")
 		else:
-			User.objects.create(username = username,password = password1)
-			return HttpResponse('注册成功')
+			User.objects.create(username = username,password = password1,phonenum = phonenum)
+			return render(request,'main.html')
 	else:
 		return render(request,'register.html')
 def code(request):
@@ -92,7 +108,12 @@ def forget(request):
     <title>Bootstrap 101 Template</title>
   </head>
   <body>
-  <a href='www.baidu.com'>www.baidu.com</a>
+  "请勿回复本邮件.点击下面的链接,重设密码<br/><a href="
+                        + resetPassHref + " target='_BLANK'>" + resetPassHref
+                        + "</a>  或者    <a href=" + resetPassHref
+                        + " target='_BLANK'>点击我重新设置密码</a>"
+                        + "<br/>tips:本邮件超过30分钟,链接将会失效，需要重新申请'找回密码'" + key
+                        + "\t" + digitalSignature;
   </body>
 </html>
 """  

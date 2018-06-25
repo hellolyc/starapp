@@ -1,8 +1,8 @@
 {% extends "base/base.html" %}
 			{% block context %}
 	<div class="container">
-		  <div class="row">
-		    	<form id="registerform" class="form-inline" action="register/" onsubmit = "console.log('hello'); return validate_form()" method="post">
+		  <div class="row mycenter">
+		    	<form id="registerform" class="form-inline" action="{% url 'login:register' %}"  method="post">
 		    	{% csrf_token %}
               <div class="mypading">
                 <div class="form-group " id="email" >
@@ -19,6 +19,11 @@
                   <input type="password" name="password2" class="form-control"  placeholder="Password" >
                  </div>
             </div>
+            <div class="mypading" >
+              <div class="form-group" id="phonenum">
+                     <input type="text" name="phonenum" class="form-control" placeholder="手机号码">
+                    </div>
+               </div>
             <div class="form-group">
 	            <button type="submit" class="btn btn-default" id="register">注册</button>
             </div>
