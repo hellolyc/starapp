@@ -69,7 +69,10 @@ def checksession(fun):
 		return wrapper
 
  
-
+def competionclick(request):
+	pass
+def competionresult(request):
+	pass
 def register(request):
 	if request.method == 'POST':
 		username = request.POST['username']
