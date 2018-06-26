@@ -78,7 +78,7 @@ def competionclick(request):
 	amount = 1.00
 	ttype = 1
 	notifyurl = "http://47.94.89.72/login/lvdiannotifyurl/"
-	returnurl = "http://47.94.89.72/login/lvdianreturnyurl/"
+	returnurl = "http://47.94.89.72"
 	ordernum = str(time.time())
 	orderuid = request.session['username']
 	goodname = "1"
@@ -103,7 +103,28 @@ def competionclick(request):
 	return HttpResponse(response)
 
 def competionresult(request):
-	pass
+	token = "mh01mvkzkrsrgbta1nzgacvy8ebsf80r"
+	greenpay_id = request.session['greenpay_id']
+	ordernum = request.session['ordernum']
+	amount = request.session['amount']
+	realamount = request.session['realamount']
+	orderuid = request.session['orderuid']
+	key = request.session['key']
+	text = ordernum + orderuid + greenpay_id + amount + realamount +  token
+	md5 = hashlib.md5(text).hexdigest()
+	if key == md5:
+		user = User.objects.get(username = orderuid)
+		com = Competition.objects.all()[0]
+		count = UserCompetion.objects.count()
+		flag = False;
+		if count % 2 == 0:
+			flag = True
+		UserCompetion.objects.create(user,com,flag)
+		return HttpResponse("success")
+	else:
+		return HttpResponse("error")
+
+
 def competionreturn(request):
 	pass
 def register(request):

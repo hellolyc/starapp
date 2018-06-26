@@ -25,6 +25,4 @@ urlpatterns = [
     url(r'^competionclick/', views.competionclick, name='competionclick'),
     url(r'^lvdiannotifyurl/', views.competionresult, name='competionresult'),
     url(r'^lvdianreturnyurl/', views.competionreturn, name='competionreturn'),
-
-
 ]
