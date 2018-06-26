@@ -103,26 +103,27 @@ def competionclick(request):
 	return HttpResponse(response)
 
 def competionresult(request):
-	token = "mh01mvkzkrsrgbta1nzgacvy8ebsf80r"
-	greenpay_id = request.session['greenpay_id']
-	ordernum = request.session['ordernum']
-	amount = request.session['amount']
-	realamount = request.session['realamount']
-	orderuid = request.session['orderuid']
-	key = request.session['key']
-	text = ordernum + orderuid + greenpay_id + amount + realamount +  token
-	md5 = hashlib.md5(text).hexdigest()
-	if key == md5:
-		user = User.objects.get(username = orderuid)
-		com = Competition.objects.all()[0]
-		count = UserCompetion.objects.count()
-		flag = False;
-		if count % 2 == 0:
-			flag = True
-		UserCompetion.objects.create(user,com,flag)
-		return HttpResponse("success")
-	else:
-		return HttpResponse("error")
+	if request.method == 'POST':
+		token = "mh01mvkzkrsrgbta1nzgacvy8ebsf80r"
+		greenpay_id = request.POST['greenpay_id']
+		ordernum = request.POST['ordernum']
+		amount = request.POST['amount']
+		realamount = request.POST['realamount']
+		orderuid = request.POST['orderuid']
+		key = request.POST['key']
+		text = ordernum + orderuid + greenpay_id + amount + realamount +  token
+		md5 = hashlib.md5(text).hexdigest()
+		if key == md5:
+			user = User.objects.get(username = orderuid)
+			com = Competition.objects.all()[0]
+			count = UserCompetion.objects.count()
+			flag = False;
+			if count % 2 == 0:
+				flag = True
+			UserCompetion.objects.create(user,com,flag)
+			return HttpResponse("success")
+		else:
+			return HttpResponse("error")
 
 
 def competionreturn(request):
