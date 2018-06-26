@@ -120,7 +120,7 @@ def competionresult(request):
 			flag = False;
 			if count % 2 == 0:
 				flag = True
-			UserCompetion.objects.create(user,com,flag)
+			UserCompetion.objects.create(user = user,competion = com,tag = flag)
 			return HttpResponse("success")
 		else:
 			return HttpResponse("error")
