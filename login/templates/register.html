@@ -1,33 +1,47 @@
 {% extends "base/base.html" %}
 			{% block context %}
 	<div class="container">
-		  <div class="row mycenter">
-		    	<form id="registerform" class="form-inline" action="{% url 'login:register' %}"  method="post">
+		  <div class="row">
+          <div class="col-md-4 col-md-offset-4 ">
+              <label>用户注册</label>
+		    	<form id="registerform" class="" action="{% url 'login:register' %}"  method="post">
 		    	{% csrf_token %}
-              <div class="mypading">
                 <div class="form-group " id="email" >
-                  <input type="email" name="username" class="form-control " placeholder="Email">
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-envelope" style="top: 0px"></span>
+                        <input type="email" name="username" class="form-control " placeholder="Email">
+                    </div>
                  </div>
-              </div>
-           <div class="mypading">
+
                <div class="form-group" id="password1">
+                  <div class="input-group">
+                      <span style="top: 0px" class="input-group-addon glyphicon glyphicon-lock" ></span>
                  <input type="password" name="password1" class="form-control"  placeholder="Password"> 
                  </div>
-            </div>
-                <div class="mypading" >
-           <div class="form-group" id="password2">
+                </div>
+
+
+                <div class="form-group" id="password2">
+                    <div class="input-group">
+                        <span style="top: 0px" class="input-group-addon glyphicon glyphicon-lock" ></span>
                   <input type="password" name="password2" class="form-control"  placeholder="Password" >
-                 </div>
-            </div>
-            <div class="mypading" >
+                </div>
+              </div>
+
+
+
               <div class="form-group" id="phonenum">
+                  <div class="input-group">
+                      <span style="top: 0px" class="input-group-addon glyphicon glyphicon-phone" ></span>
                      <input type="text" name="phonenum" class="form-control" placeholder="手机号码">
                     </div>
-               </div>
-            <div class="form-group">
-	            <button type="submit" class="btn btn-default" id="register">注册</button>
-            </div>
+                  </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">注册</button>
+                   </div>
          </form>
 		</div>
-	</div>
+      </div>
+  </div>
 	{% endblock context %}

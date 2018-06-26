@@ -14,6 +14,17 @@ import hashlib
 import requests
 # Create your views here.
 
+def checksession(fun):
+	def wrapper(request):
+		if request.session.has_key("username"):
+			now = time.time()
+			timedela = now - request.session['time']
+			if(timedela.seconds >= 5 * 60):
+				del request.session['username']
+				return HttpResponseRedirect('/login/')
+			return fun(request)
+		return HttpResponseRedirect('/login/')
+	return wrapper
 def login(request):
 	if request.method == 'POST':  
 		return post(request)
@@ -46,30 +57,27 @@ def post(request):
 		if not username or not password:
 			return HttpResponseRedirect('/register/')
 		else:
-			user = User.objects.get(username = username)
-			if user.password == password:
+			users = User.objects.filter(username = username)
+			if  users.count() > 0 and users[0].password == password:
 				request.session['time'] = time.time()
 				request.session['username'] = username
 				com = Competition.objects.all()
 				usercom = UserCompetion.objects.all()
-				return render(request,'main.html',{'user':user,"com":com, "usercom": usercom})
+				return render(request,'main.html',{'email':users[0],"com":com, "usercom": usercom})
 			else:
 				return HttpResponse("用户名或密码错误!")
 	else:
 		return HttpResponse("请输入用户名或密码")
+
+
+@checksession
 def logout(request):
 	del request.session['username']
-	return HttpResponseRedirect('/login/')
-def checksession(fun):
-	def wrapper(request):
-		now = time.time()
-		print "success"
-		timedela = now - request.session['time']
-		if(timedela.seconds() >= 5 * 60):
-			del request.session['username']
-			return HttpResponseRedirect('/login/')
-		fun(request)
-		return wrapper
+	return HttpResponseRedirect('/index/',request)
+
+@checksession
+def test(request):
+	pass
 
 def competionclick(request):
 	url = "https://www.greenzf.com/api/index"
@@ -153,6 +161,7 @@ def code(request):
 	request.session['checkcode'] = text.lower() 
 	print text.lower()
 	return HttpResponse(buf.getvalue(), 'image/png')
+
 def forget(request):
 	sender = "15800489297@163.com"  
 	receivers = ["995938715@qq.com"]  

@@ -12,26 +12,9 @@
 	<link href="{% static 'css/bootstrapValidator.min.css' %}" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 	<script src="{% static 'js/bootstrapValidator.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.js' %}"></script>
 	<script src="{% static 'js/login.js' %}"></script>
-	<script src="{% static 'css/main.css' %}"></script>
-	<style>
-		.border {  
-			 /*border: 2px solid blue;*/
-		}
-		.mycenter {
-			position: absolute;
-			left: 66%;
-			top: 40%;		
-			margin-left: -210px;
-			margin-top: -165px;
-			padding: 60px;
-
-		}
-		.mypading{
-			padding-bottom: 20px;
-			height: 60px;
-		}
-	</style>
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,7 +23,76 @@
     <![endif]-->
   </head>
   <body>
+			<nav class="navbar navbar-default navbar-fixed-top">
+					<div class="container">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">
+									<img style="width: 20px; height: 20px" alt="Brand" src="/static/picture/logo.jpg">
+							</a>
+						</div>
+				
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="/index">首页 <span class="sr-only">(current)</span></a></li>
+								<li><a href="/login/">登录/注册</a></li>
+								{% if email %}
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+									<ul class="dropdown-menu">
+										<li><a>{{ email.username }}</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="/login/logout">Logout</a></li>
+									</ul>
+								</li>
+							   {% endif %}
+
+							</ul>
+						</div><!-- /.navbar-collapse -->
+
+					
+
+					</div><!-- /.container-fluid -->
+				</nav>
+				<div class="container">
+						<div class="jumbotron">
+								<div class="container center-block">
+								<p class="text-center">我思故我在</p>
+								</div>
+							</div>
+				</div>
+			
       {% block context %}
-      {% endblock context %}
+			{% endblock context %}
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+					<div class="container">
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+									<ul class="nav navbar-nav">
+										<li><a href="#">隐私政策</a></li>
+										<li><a href="#">服务协议</a></li>
+										<li><a href="#">关于我们</a></li>
+									</ul>
+									<ul class="nav navbar-nav navbar-right">
+											<li>
+													<a href="javascript:;" style="padding: 15px 0px 0px 0px" onmouseover="$('#popover-box').css('display','block'); " onmouseout="$('#popover-box').css('display','none'); ">
+															<img style="width: 20px;height: 20px" src="/static/picture/weixin.jpg"></img>
+													</a>
+													<div id="popover-box" style="right:0;padding:20px;display: none;position: absolute;bottom: 20px; text-align: center">
+															<img src="/static/picture/brand.jpg" alt="">
+															<p>扫码添加绿点官方客服</p>
+													</div>
+											</li>
+										</ul>
+								</div><!-- /.navbar-collapse -->
+							
+					</div>
+				</nav>
   </body>
 </html>

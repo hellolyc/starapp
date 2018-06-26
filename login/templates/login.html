@@ -2,33 +2,42 @@
 			{% block context %}
 			{% load staticfiles %}
 	<div class="container">
-		<div class="row mycenter">
-			<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4 ">
 				<label>用户登录</label>
-				<form class="form-inline border" action="/login/" method="post" onsubmit="return validate_loginform()" >
+				<form class="" action="/login/" method="post" onsubmit="return validate_loginform()" >
 					{% csrf_token %}
-					<div class = "mypading" >
-						<div class="form-group  border" id = "email">
+						<div class="form-group" id = "email">
 							{{ form.username.errors }}
-							<input type="text" name="username" class="form-control" id="{{ form.username.id_for_label }}" placeholder="Email"> 
+							<div class="input-group">
+									<span class="input-group-addon glyphicon glyphicon-envelope" style="top: 0px"></span>
+									<input type="text" name="username" class="form-control" id="{{ form.username.id_for_label }}" placeholder="Email"> 
+							</div>
+							
 						</div>
-					</div>
-					<div class="mypading">
-						<div class="form-group  border mypading" id = "password1">
-						{{ form.password.errors }}
-							<input type="password" name="password" class="form-control" id="{{ form.password.id_for_label }}" placeholder="Password">
+
+						<div class="form-group" id = "password1">
+							{{ form.password.errors }}
+							<div class="input-group">
+								<span style="top: 0px" class="input-group-addon glyphicon glyphicon-lock" ></span>
+								<input type="password" name="password" class="form-control" id="{{ form.password.id_for_label }}" placeholder="Password">
+							</div>
 						</div>
-					<div class="mypading">
+
 						<div class="form-group  border mypading" id = "checkcode">
 							<input type="text" name="checkcode" class="form-control" id="{{ form.password.id_for_label }}" placeholder="验证码">
-							<img  onclick='ChangeCode(this);' id='imgCode' src="{% url 'login:code' %}" title='点击更新' />
+							<img  onclick='ChangeCode(this);' id='imgCode' src='code/' title='点击更新' />
 						</div>
+
+					<div class="form-group">
+						   <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
 					</div>
 					<div class="form-group">
-						   <button type="submit" class="btn btn-primary">登录</button>
-						   <button class="btn btn-primary"><a href="{% url 'login:register' %}" style="color:white">免费注册</a></button>
-						   <button class="btn btn-primary"><a href="{% url 'login:forget' %}" style="color:white">忘记密码</a></button>
-				    </div>
+						<a href="{% url 'login:forget' %}" >忘记密码</a>
+						<a href="{% url 'login:register' %}" class="pull-right">没有账户，立即注册</a>
+					</div>
+					
+					
 				</form>
 			</div>
 		</div>
